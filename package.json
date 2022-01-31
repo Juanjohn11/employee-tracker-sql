@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "employee-tracker-sql",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juanjohn11/employee-tracker-sql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Juanjohn11/employee-tracker-sql/issues"
+  },
+  "homepage": "https://github.com/Juanjohn11/employee-tracker-sql#readme",
+  "description": ""
+}
