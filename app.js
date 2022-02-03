@@ -10,17 +10,27 @@ function mainPrompts(){
             name: 'choice',
             message: 'what would you like to do?',
             choices: [
-                "View all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"
-                    
-                
+                "View all departments", 
+                "View all roles", 
+                "View all employees", 
+                "Add a department", 
+                "Add a role", 
+                "Add an employee", 
+                "Update an employee role"
             ]
         }
     ]).then(res =>{
-        if (res.choice === "view all departments" ){
+        if (res.choice === "View all departments" ){
             viewDepartments();
 
-        }else if(res.choice === "add a role"){
+        }else if(res.choice === "Add a role"){
             addRole();
+        } else if (res.choice === "View all roles"){
+            viewAllRoles();
+        } else if (res.choice === "View all employees"){
+            viewAllEmployees();
+        }else if (res.choice === "Add a department"){
+            addDepartment();
         }
     })
 }
@@ -28,10 +38,26 @@ function mainPrompts(){
 function viewDepartments (){
     connection.query('SELECT * FROM department', function(err, res){
         if(err)throw err
-        console.table(res);
+        console.table(res)
         mainPrompts();
     })
 
+}
+
+function viewAllRoles (){
+    connection.query('SELECT * FROM role', function(err,res){
+        if(err)throw err
+        console.table(res)
+        mainPrompts();
+    })
+}
+
+function viewAllEmployees (){
+    connection.query('SELECT * FROM employee', function(err,res){
+        if(err)throw err
+        console.table(res)
+        mainPrompts();
+    })
 }
 
 function addRole(){
@@ -72,12 +98,35 @@ function addRole(){
     ]).then(res =>{
         connection.query('INSERT INTO role SET ?',res,function(err){
             if(err)throw err
-            console.log('addRole');
+            console.log('New role added.');
             mainPrompts();
 
         })
     })
     
 }
+
+function addDepartment(){
+    inquirer.prompt([
+        {
+            name: 'name',
+            message: 'What is the new department name?',
+            type:'input'
+        },
+
+    ]).then(res =>{
+        connection.query('INSERT INTO department SET ?',res,function(err){
+            if(err)throw err
+            console.log('New department added.');
+            mainPrompts();
+
+        })
+    })
+    
+}
+
+
+
+
 
 mainPrompts();
