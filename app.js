@@ -31,6 +31,10 @@ function mainPrompts(){
             viewAllEmployees();
         }else if (res.choice === "Add a department"){
             addDepartment();
+        }else if (res.choice === 'Add an employee'){
+            addEmployee();
+        }else if (res.choice === 'Update an employee role'){
+            updateEmployeeRole();
         }
     })
 }
@@ -125,7 +129,63 @@ function addDepartment(){
     
 }
 
+function addEmployee (){
+    inquirer.prompt([
 
+        {
+            name: 'first_name',
+            message: 'what is the emplyoees first name?',
+            type: 'input'
+        },
+        {
+            name: 'last_name',
+            message: 'what is the emplyoees last name?',
+            type: 'input'
+        },
+        {
+            name: 'role_id',
+            message: 'what is the emplyoees role id?',
+            type: 'input'
+        }
+
+
+
+    ]).then (res => {
+        connection.query('INSERT INTO employee SET ?',res,function(err){
+            if(err)throw err
+            console.log('New employee added.');
+            mainPrompts();
+
+        })
+    })
+}
+
+function updateEmployeeRole (){
+    inquirer.prompt([
+        
+        {
+            name: 'role_id',
+            message: 'what is the new emplyoees role id?',
+            type: 'input'
+        },
+        {
+            name: 'id',
+            message: 'what is the employees id?',
+            type:'input'
+        }
+    
+
+
+    ]).then (res => {
+        connection.query('UPDATE employee ?',res,function(err){
+            if(err)throw err
+            console.log('Employee role was updated.');
+            mainPrompts();
+
+        }).then
+    })
+    
+}
 
 
 
